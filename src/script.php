@@ -128,9 +128,9 @@ switch ($action) {
 
         $mensagem = "Fruta nao encontrada!";
 
-        foreach($frutas as $fruta){
+        foreach($frutas as $indice => $fruta){
           if(strtolower($frutaDigitada) == strtolower($fruta)) {
-            $mensagem = "Fruta encontrada!";
+            $mensagem = "Fruta encontrada! <br> No indice: " . $indice;
             break;
           }
         }
@@ -171,7 +171,7 @@ switch ($action) {
             $mensagem = "";
 
             foreach($alunos as $aluno => $dados){
-              $mensagem .= "Nome: {$dados['nome']}" . " | Idade: {$dados['idade']}" . "<br>";
+              $mensagem .= "Nome: {$dados['nome']}" . " | Nota: {$dados['nota']}" . "<br>";
             }
 
             $resultado = ["data" => $mensagem];
@@ -181,12 +181,86 @@ switch ($action) {
           case "adicionarAluno":
 
             $alunos["104"] = $removido;
-            $mensagem = $removido;
 
-            $mensagem .= "Nome: {$dados['nome']}" . " | Idade: {$dados['idade']}" . "<br>";
+            foreach($alunos as $removido => $dados){
+              $mensagem .= "Nome: {$dados['nome']}" . " | Nota: {$dados['nota']}" . "<br>";
+            }
 
             $resultado = ["data" => $mensagem];
             echo json_encode($resultado);
+            break;
+
+          case "atualizarNotaAluno":
+            
+            $alunos["102"]["nota"] = 5;
+            $alunos["104"] = $removido;
+
+             foreach($alunos as $removido => $dados){
+              $mensagem .= "Nome: {$dados['nome']}" . " | Nota: {$dados['nota']}" . "<br>";
+            }
+
+            $resultado = ["data"=> $mensagem];
+            echo json_encode($resultado);
+            break;
+
+          case "calcularMedia":
+
+            $mensagem = "";
+
+            $alunos["102"]["nota"] = 5;
+            $alunos["104"] = $removido;
+
+             foreach($alunos as $removido => $dados){
+              $mensagem .= "Nome: {$dados['nome']}" . " | Nota: {$dados['nota']}" . "<br>";
+            }
+
+            foreach($alunos as $id => $aluno){
+              $soma += $aluno["nota"];
+            }
+
+            $media = $soma / count($alunos);
+
+            $mensagem .= "<br> A media das notas e: " . $media;
+
+            $resultado = ["data"=> $mensagem];
+            echo json_encode($resultado);
+            break;
+
+            case "ordenarNotas":
+
+              $mensagem = "";
+
+              $alunos["102"]["nota"] = 5;
+              $alunos["104"] = $removido;
+
+              usort($alunos, function($a, $b) {
+                 return ($a["nota"] > $b["nota"]) ? -1 : 1;
+              });
+
+              foreach($alunos as $aluno){
+                $mensagem .= "Nome: {$aluno['nome']}" . " | Nota: {$aluno['nota']}" . "<br>";
+              };
+
+              $resultado = ["data"=> $mensagem];
+              echo json_encode($resultado);
+              break;
+            
+            case "mediaMaior":
+
+              $mensagem = "";
+
+              $alunos["102"]["nota"] = 5;
+              $alunos["104"] = $removido;
+
+              foreach($alunos as $aluno){
+                if($aluno['nota'] > 8){
+                  $mensagem .= "Nome: {$aluno['nome']}" . " | Nota: {$aluno['nota']}" . "<br>";
+                } 
+              }
+
+              $resultado = ["data" => $mensagem];
+              echo json_encode($resultado);
+              break;
 
 }
 

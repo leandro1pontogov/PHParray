@@ -12,9 +12,13 @@
       border: 1px dashed black;
       margin-top: 15px;
       margin-bottom: 15px;
+      width: 70%;
     }
-    
-
+    #conteudo{
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+    }
   </style>
 <script>
 $(document).ready(function() {
@@ -121,10 +125,7 @@ $(document).ready(function() {
       function(response){
         $("#mostrarAlunos").html(response.data);
         $("#BtnAdicionarAluno").show()
-        $("#BtnAtualizarNotaAluno").show()
-        $("#BtnCalcularMediaAluno").show()
-        $("#BtnMedia").show()
-        $("#BtnOrdenarNota").show()
+        $("#BtnMostrarAlunos").hide()
         console.log(response.data)
       },
       "json"
@@ -137,7 +138,68 @@ $(document).ready(function() {
         
       },
       function(response){
-        $("#mostrar").html(response.data);
+        $("#mostrarAlunos").html(response.data);
+        $("#BtnAdicionarAluno").hide()
+        $("#BtnAtualizarNotaAluno").show()
+        console.log(response.data)
+      },
+      "json"
+    )
+  })
+  $("#BtnAtualizarNotaAluno").click(function(){
+    $.post(
+      "script.php?action=atualizarNotaAluno",
+      {
+        
+      },
+      function(response){
+        $("#mostrarAlunos").html(response.data);
+        $("#BtnAtualizarNotaAluno").hide()
+        $("#BtnCalcularMediaAluno").show()
+        console.log(response.data)
+      },
+      "json"
+    )
+  })
+  $("#BtnCalcularMediaAluno").click(function(){
+    $.post(
+      "script.php?action=calcularMedia",
+      {
+        
+      },
+      function(response){
+        $("#mostrarAlunos").html(response.data);
+        $("#BtnCalcularMediaAluno").hide()
+        $("#BtnOrdenarNota").show()
+        console.log(response.data)
+      },
+      "json"
+    )
+  })
+  $("#BtnOrdenarNota").click(function(){
+    $.post(
+      "script.php?action=ordenarNotas",
+      {
+        
+      },
+      function(response){
+        $("#mostrarAlunos").html(response.data);
+        $("#BtnOrdenarNota").hide()
+        $("#BtnMedia").show()
+        console.log(response.data)
+      },
+      "json"
+    )
+  })
+  $("#BtnMedia").click(function(){
+    $.post(
+      "script.php?action=mediaMaior",
+      {
+        
+      },
+      function(response){
+        $("#mostrarAlunos").html(response.data);
+        $("#BtnMedia").hide()
         console.log(response.data)
       },
       "json"
@@ -192,10 +254,15 @@ $(document).ready(function() {
 
     <input id="BtnMostrarAlunos" type="button" value="Mostrar Lista Alunos">
     <div id="mostrarAlunos"></div>
+
     <input id="BtnAdicionarAluno" type="button" value="Adicionar Aluno" hidden>
+
     <input id="BtnAtualizarNotaAluno" type="button" value="Atualizar Nota Aluno" hidden>
+
     <input id="BtnCalcularMediaAluno" type="button" value="Calcular Media" hidden>
+
     <input id="BtnMedia" type="button" value="Media maior que 8" hidden>
+
     <input id="BtnOrdenarNota" type="button" value="Ordenar por Nota" hidden>
 
 
