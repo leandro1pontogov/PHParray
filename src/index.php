@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+		integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <style>
+    #linha{
+      border: 1px dashed black;
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+    
+
+  </style>
+<script>
+$(document).ready(function() {
+  $("#BtnEnviar").click(function(){
+    $.post(
+      "script.php?action=listaMercado",
+      {
+        
+      },
+      function(response){
+        $("#listaMercado").html(response.data);
+        console.log(response.data)
+      },
+   "json"
+    )
+  })
+  $("#BtnEnviarNome").click(function(){
+    $("#BtnOrdenarAlfabetica").show()
+    $("#BtnOrdenarDecrescente").show()
+    $("#BtnEnviarNome").show(false)
+    $.post(
+      "script.php?action=listaNome",
+      {
+        
+      },
+      function(response){
+        $("#listaNome").html(response.data);
+        console.log(response.data)
+      },
+   "json"
+    )
+  })
+  $("#BtnOrdenarAlfabetica").click(function(){
+    $.post(
+      "script.php?action=listaNomeAlfabetica",
+      {
+        
+      },
+      function(response){
+        $("#listaNome").html(response.data);
+        console.log(response.data)
+      },
+   "json"
+    )
+  })
+  $("#BtnOrdenarDecrescente").click(function(){
+    $.post(
+      "script.php?action=listaNomeDecrescente",
+      {
+        
+      },
+      function(response){
+        $("#listaNome").html(response.data);
+        console.log(response.data)
+      },
+   "json"
+    )
+  })
+  $("#BtnEnviarNumero").click(function(){
+    $.post(
+      "script.php?action=numerosPares",
+      {
+        
+      },
+      function(response){
+        $("#listaNumero").html(response);
+        console.log(response)
+      },
+    )
+  })
+  $("#BtnEnviarFruta").click(function(){
+    $.post(
+      "script.php?action=procurandoFruta",
+      {
+       fruta: $("#fruta").val(),
+      },
+      function(response){
+        $("#respostaFruta").html(response.data);
+        $("#fruta").val("");
+        console.log(response)
+      },
+      "json"
+    )
+  })
+  $("#BtnMostrarLista").click(function(){
+    $.post(
+      "script.php?action=mesclandoArrays",
+      {
+        
+      },
+      function(response){
+        $("#mostrar").html(response.data);
+        console.log(response.data)
+      },
+      "json"
+    )
+  })
+  $("#BtnMostrarAlunos").click(function(){
+    $.post(
+      "script.php?action=listaAlunos",
+      {
+
+      },
+      function(response){
+        $("#mostrarAlunos").html(response.data);
+        $("#BtnAdicionarAluno").show()
+        $("#BtnAtualizarNotaAluno").show()
+        $("#BtnCalcularMediaAluno").show()
+        $("#BtnMedia").show()
+        $("#BtnOrdenarNota").show()
+        console.log(response.data)
+      },
+      "json"
+    )
+  })
+   $("#BtnAdicionarAluno").click(function(){
+    $.post(
+      "script.php?action=adicionarAluno",
+      {
+        
+      },
+      function(response){
+        $("#mostrar").html(response.data);
+        console.log(response.data)
+      },
+      "json"
+    )
+  })
+})
+</script>
+</head>
+
+<body>
+
+  <div id="conteudo">
+    <ul id="listaMercado">
+      <li>arroz</li>
+      <li>feijao</li>
+      <li>bolacha</li>
+      <li>agua</li>
+      <li>pao</li>
+    </ul>
+    <input id="BtnEnviar" type="button" value="Adicionar na lista">
+
+    <div id="linha"></div>
+
+    <ul id="listaNome">
+      
+    </ul>
+    <input id="BtnEnviarNome" type="button" value="Mostrar Lista Nome">
+    <input id="BtnOrdenarAlfabetica" type="button" value="Ordem Alfabetica" hidden>
+    <input id="BtnOrdenarDecrescente" type="button" value="Ordem Descrescente" hidden>
+
+    <div id="linha"></div>
+
+    <ul id="listaNumero">
+      
+    </ul>
+
+    <input id="BtnEnviarNumero" type="button" value="Mostrar Lista Numero">
+
+    <div id="linha"></div>
+
+    <label for="fruta">Diga uma fruta:</label>
+    <input type="text" id="fruta">
+    <input id="BtnEnviarFruta" type="button" value="Enviar">
+    <div id="respostaFruta"></div>
+
+    <div id="linha"></div>
+
+    <input id="BtnMostrarLista" type="button" value="Mostrar Lista">
+    <div id="mostrar"></div>
+
+    <div id="linha"></div>
+
+    <input id="BtnMostrarAlunos" type="button" value="Mostrar Lista Alunos">
+    <div id="mostrarAlunos"></div>
+    <input id="BtnAdicionarAluno" type="button" value="Adicionar Aluno" hidden>
+    <input id="BtnAtualizarNotaAluno" type="button" value="Atualizar Nota Aluno" hidden>
+    <input id="BtnCalcularMediaAluno" type="button" value="Calcular Media" hidden>
+    <input id="BtnMedia" type="button" value="Media maior que 8" hidden>
+    <input id="BtnOrdenarNota" type="button" value="Ordenar por Nota" hidden>
+
+
+  </div>
+
+</body>
+
+</html>
+
+<?php
+
+
+
+  
