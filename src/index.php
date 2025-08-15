@@ -166,7 +166,37 @@ $(document).ready(function() {
       "json"
     )
   })
-  $("#BtnMostrarLista").click(function(){
+  $("#BtnMostrarPrimeiro").click(function(){
+    $.post(
+      "script.php?action=primeiroArray",
+      {
+        
+      },
+      function(response){
+        $("#mostrar").html(response.data);
+        $("#BtnMostrarSegundo").show()
+        $("#BtnMostrarPrimeiro").hide()
+        console.log(response.data)
+      },
+      "json"
+    )
+  })
+  $("#BtnMostrarSegundo").click(function(){
+    $.post(
+      "script.php?action=segundoArray",
+      {
+        
+      },
+      function(response){
+        $("#mostrar").html(response.data);
+        $("#BtnMostrarSegundo").hide()
+        $("#BtnMostrarMesclado").show()
+        console.log(response.data)
+      },
+      "json"
+    )
+  })
+  $("#BtnMostrarMesclado").click(function(){
     $.post(
       "script.php?action=mesclandoArrays",
       {
@@ -174,7 +204,22 @@ $(document).ready(function() {
       },
       function(response){
         $("#mostrar").html(response.data);
-        $("#BtnMostrarLista").hide()
+        $("#BtnMostrarMesclado").hide()
+        $("#BtnMostrarAdicionado").show()
+        console.log(response.data)
+      },
+      "json"
+    )
+  })
+  $("#BtnMostrarAdicionado").click(function(){
+    $.post(
+      "script.php?action=adicionarValor",
+      {
+        
+      },
+      function(response){
+        $("#mostrar").html(response.data);
+        $("#BtnMostrarAdicionado").hide()
         console.log(response.data)
       },
       "json"
@@ -315,7 +360,10 @@ $(document).ready(function() {
 
     <div id="linha"></div>
 
-    <input id="BtnMostrarLista" type="button" value="Mostrar Lista">
+    <input id="BtnMostrarPrimeiro" type="button" value="Mostrar Primeiro Array">
+    <input id="BtnMostrarSegundo" type="button" value="Mostrar Segundo Array" hidden>
+    <input id="BtnMostrarMesclado" type="button" value="Mostrar Mesclados" hidden>
+    <input id="BtnMostrarAdicionado" type="button" value="Adicionar Valor" hidden>
     <div id="mostrar"></div>
 
     <div id="linha"></div>

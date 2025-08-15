@@ -217,7 +217,69 @@ switch ($action) {
         echo json_encode($resultado);
         break;
 
+        case "primeiroArray":
+
+          $comida = [
+            "arroz",
+            "feijao",
+            "macarrao"
+          ];
+
+          $mensagem = "";
+
+          foreach($comida as $c){
+            $mensagem .= "Comida: ". $c . "<br>";
+          }
+
+          $resultado = ["data" => $mensagem];
+          echo json_encode($resultado);
+          break;
+
+        case "segundoArray":
+
+          $preco = [
+            "5.50",
+            "7.20",
+            "4.80"
+          ];
+
+          $mensagem = "";
+
+          foreach($preco as $p){
+            $mensagem .= "Preco: ". $p . "<br>";
+          }
+
+          $resultado = ["data" => $mensagem];
+          echo json_encode($resultado);
+
+        break;
+
         case "mesclandoArrays":
+
+          $comida = [
+            "arroz",
+            "feijao",
+            "macarrao"
+          ];
+
+          $preco = [
+            "5.50",
+            "7.20",
+            "4.80"
+          ];
+
+          $mesclados = array_combine($comida, $preco);
+          $mensagem = "";
+
+          foreach($mesclados as $comida => $preco){
+            $mensagem .= "Comida: ". $comida . " | Valor: " . $preco . "<br>";
+          }
+
+          $resultado = ["data" => $mensagem];
+          echo json_encode($resultado);
+          break;
+
+          case "adicionarValor":
 
           $comida = [
             "arroz",
@@ -339,6 +401,5 @@ switch ($action) {
               $resultado = ["data" => $mensagem];
               echo json_encode($resultado);
               break;
-
 }
 
