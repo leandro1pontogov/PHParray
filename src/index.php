@@ -60,7 +60,7 @@ $(document).ready(function() {
       },
       function(response){
         $("#listaMercado").html(response.data);
-        $("#BtnQuantidadeMercado").show()
+        $("#BtnQuantidadeMercado").hide()
         console.log(response.data)
       },
    "json"
@@ -380,7 +380,6 @@ $(document).ready(function() {
     <input id="BtnMedia" type="button" value="Media maior que 8" hidden>
 
     <input id="BtnOrdenarNota" type="button" value="Ordenar por Nota" hidden>
-
 
   </div>
 

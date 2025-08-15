@@ -2,38 +2,37 @@
 
 $action = $_GET["action"];
 
-  $comidas = 
-  [
-    "arroz", 
-    "feijao", 
-    "bolacha", 
-    "agua", 
-    "pao"
-  ];
+$comidas = [
+  "arroz", 
+  "feijao", 
+  "bolacha", 
+  "agua", 
+  "pao"
+];
 
 $nomes = [
-      "Leandro",
-      "Joao",
-      "Danrley",
-      "Andre",
-      "Jorge",
-      "Matheus",
-      "Otavio"
-    ];
+  "Leandro",
+  "Joao",
+  "Danrley",
+  "Andre",
+  "Jorge",
+  "Matheus",
+  "Otavio"
+];
 
-  $alunos = [
-            "101" => ["nome" => "Ana", "idade" => 20, "nota" => 8.5],
-            "102" => ["nome" => "Bruno", "idade" => 22, "nota" => 7.0],
-            "103" => ["nome" => "Carla", "idade" => 21, "nota" => 9.2],
-            "104" => ["nome" => "Leandro", "idade" => 25, "nota" => 6],
-          ];
+$alunos = [
+  "101" => ["nome" => "Ana", "idade" => 20, "nota" => 8.5],
+  "102" => ["nome" => "Bruno", "idade" => 22, "nota" => 7.0],
+  "103" => ["nome" => "Carla", "idade" => 21, "nota" => 9.2],
+  "104" => ["nome" => "Leandro", "idade" => 25, "nota" => 6],
+];
 
 $removido = $alunos["104"];
 unset($alunos["104"]);
 
 switch ($action) {
 
- case "listaMercado":
+case "listaMercado":
 
   $mensagem = "";
 
@@ -46,360 +45,358 @@ switch ($action) {
 
   $resposta = ["data" => $mensagem];
   echo json_encode($resposta);
+break;
+
+case "removerMercado":
+
+  $mensagem = "";
+
+  array_push($comidas, "cebola", "alface");
+  array_shift($comidas);
+
+  foreach($comidas as $comida){
+    $mensagem .= "<li>$comida</li>";
+  }
+
+  $resultado = ["data" => $mensagem];
+  echo json_encode($resultado);
   break;
 
-  case "removerMercado":
+case "mostrarQuantidade":
 
-    $mensagem = "";
+  $mensagem = "";
 
-    array_push($comidas, "cebola", "alface");
-    array_shift($comidas);
+  array_push($comidas, "cebola", "alface");
+  array_shift($comidas);
 
-    foreach($comidas as $comida){
-      $mensagem .= "<li>$comida</li>";
-    }
+  $quantidade = 0;
+  foreach ($comidas as $comida) {
+    $mensagem .= "<li>$comida</li>";
+    $quantidade++;
+  }
 
-    $resultado = ["data" => $mensagem];
-    echo json_encode($resultado);
-    break;
+  $mensagem .= "<br> Voce possui " . $quantidade . " itens na lista";
 
-  case "mostrarQuantidade":
+  $resultado = ["data" => $mensagem];
+  echo json_encode($resultado);
+break;
 
-    $mensagem = "";
+case "listaNome":
 
-    array_push($comidas, "cebola", "alface");
-    array_shift($comidas);
+  $mensagem = "";
 
-    $quantidade = 0;
-    foreach ($comidas as $comida) {
-      $mensagem .= "<li>$comida</li>";
-      $quantidade++;
-    }
+  foreach($nomes as $nome){
+    $mensagem .= "<li>$nome</li>";
+  }
 
-    $mensagem .= "<br> Voce possui " . $quantidade . " itens na lista";
+  $resultado = ["data" => $mensagem];
+  echo json_encode($resultado);
+break;
 
-    $resultado = ["data" => $mensagem];
-    echo json_encode($resultado);
+case "listaNomeAlfabetica":
 
-  break;
-
-  case "listaNome":
-
-    $mensagem = "";
+    $mensagem = ""; 
+    asort($nomes);
 
     foreach($nomes as $nome){
-      $mensagem .= "<li>$nome</li>";
+    $mensagem .= "<li>$nome</li>";
+  }
+    
+  $resultado = ["data" => $mensagem];
+  echo json_encode($resultado);
+break;
+
+case "listaNomeDecrescente":
+
+    $mensagem = ""; 
+    $nomesInvertido = array_reverse($nomes);
+
+    foreach($nomesInvertido as $nome){
+    $mensagem .= "<li>$nome</li>";
+  }
+    
+  $resultado = ["data" => $mensagem];
+  echo json_encode($resultado);
+break;
+
+case "mostrarNumeros":
+
+  $numeros = [];
+
+  $mensagem = "";
+  $mensagem2 = "";
+
+  for($i = 1; $i <= 20; $i++){
+    $mensagem .= " " . $numeros[] = $i;
+  }
+
+  echo "Seu array e: " . $mensagem;
+break;
+
+case "numerosPares":
+
+  $mensagem = "";
+
+  $numeros = [];
+  $numerosPares = [];
+
+  $mensagem = "";
+  $mensagem2 = "";
+  $mensagemFinal = "";
+
+  for($i = 1; $i <= 20; $i++){
+    $mensagem .= " " . $numeros[] = $i;
+  }
+
+  foreach($numeros as $numero){
+    if($numero % 2 == 0){
+      $mensagem2 .= " " . $numerosPares[] = $numero;
     }
+  }
 
-    $resultado = ["data" => $mensagem];
-    echo json_encode($resultado);
-    break;
+  $mensagemFinal .= "Seu array e: " . $mensagem . "<br><br> Os numeros pares sao: " . $mensagem2;
 
-    case "listaNomeAlfabetica":
+  $resultado = ["data" => $mensagemFinal];
+  echo json_encode($resultado);
+break;
 
-     $mensagem = ""; 
-     asort($nomes);
+case "mostrarSoma":
 
-     foreach($nomes as $nome){
-      $mensagem .= "<li>$nome</li>";
+  $mensagem = "";
+
+  $numeros = [];
+  $numerosPares = [];
+  $soma = 0;
+
+  $mensagem = "";
+  $mensagem2 = "";
+  $mensagemFinal = "";
+
+  for($i = 1; $i <= 20; $i++){
+    $mensagem .= " " . $numeros[] = $i;
+  }
+
+  foreach($numeros as $numero){
+    if($numero % 2 == 0){
+      $mensagem2 .= " " . $numerosPares[] = $numero;
+      $soma += $numero;
     }
-     
-    $resultado = ["data" => $mensagem];
-    echo json_encode($resultado);
-    break;
+  }
 
-    case "listaNomeDecrescente":
+  $mensagemFinal .= "Seu array e: " . $mensagem . "<br><br> Os numeros pares sao: " . $mensagem2 . "<br><br> A soma deu: " . $soma;
 
-     $mensagem = ""; 
-     $nomesInvertido = array_reverse($nomes);
+  $resultado = ["data" => $mensagemFinal];
+  echo json_encode($resultado);
+break;
 
-     foreach($nomesInvertido as $nome){
-      $mensagem .= "<li>$nome</li>";
+case "procurandoFruta":
+
+  $frutas = [
+    "banana",
+    "maca",
+    "goiaba",
+    "mamao",
+    "uva",
+    "morango"
+  ];
+
+  $frutaDigitada = $_POST["fruta"];
+
+  $mensagem = "Fruta nao encontrada!";
+
+  foreach($frutas as $indice => $fruta){
+    if(strtolower($frutaDigitada) == strtolower($fruta)) {
+      $mensagem = "Fruta encontrada! <br> No indice: " . $indice;
+      break;
     }
-     
-    $resultado = ["data" => $mensagem];
-    echo json_encode($resultado);
-    break;
+  }
 
-    case "mostrarNumeros":
+  $resultado = ["data" => $mensagem];
+  echo json_encode($resultado);
+break;
 
-      $numeros = [];
+case "primeiroArray":
 
-      $mensagem = "";
-      $mensagem2 = "";
+  $comida = [
+    "arroz",
+    "feijao",
+    "macarrao"
+  ];
 
-      for($i = 1; $i <= 20; $i++){
-       $mensagem .= " " . $numeros[] = $i;
-      }
+  $mensagem = "";
 
-      echo "Seu array e: " . $mensagem;
-      break;
+  foreach($comida as $c){
+    $mensagem .= "Comida: ". $c . "<br>";
+  }
 
-      case "numerosPares":
+  $resultado = ["data" => $mensagem];
+  echo json_encode($resultado);
+break;
 
-      $mensagem = "";
+case "segundoArray":
 
-      $numeros = [];
-      $numerosPares = [];
+  $preco = [
+    "5.50",
+    "7.20",
+    "4.80"
+  ];
 
-      $mensagem = "";
-      $mensagem2 = "";
-      $mensagemFinal = "";
+  $mensagem = "";
 
-      for($i = 1; $i <= 20; $i++){
-       $mensagem .= " " . $numeros[] = $i;
-      }
+  foreach($preco as $p){
+    $mensagem .= "Preco: ". $p . "<br>";
+  }
 
-      foreach($numeros as $numero){
-        if($numero % 2 == 0){
-          $mensagem2 .= " " . $numerosPares[] = $numero;
-        }
-      }
+  $resultado = ["data" => $mensagem];
+  echo json_encode($resultado);
+break;
 
-      $mensagemFinal .= "Seu array e: " . $mensagem . "<br><br> Os numeros pares sao: " . $mensagem2;
+case "mesclandoArrays":
 
-      $resultado = ["data" => $mensagemFinal];
-      echo json_encode($resultado);
-      break;
+  $comida = [
+    "arroz",
+    "feijao",
+    "macarrao"
+  ];
 
-      case "mostrarSoma":
+  $preco = [
+    "5.50",
+    "7.20",
+    "4.80"
+  ];
 
-        $mensagem = "";
+  $mesclados = array_combine($comida, $preco);
+  $mensagem = "";
 
-      $numeros = [];
-      $numerosPares = [];
-      $soma = 0;
+  foreach($mesclados as $comida => $preco){
+    $mensagem .= "Comida: ". $comida . " | Valor: " . $preco . "<br>";
+  }
 
-      $mensagem = "";
-      $mensagem2 = "";
-      $mensagemFinal = "";
+  $resultado = ["data" => $mensagem];
+  echo json_encode($resultado);
+break;
 
-      for($i = 1; $i <= 20; $i++){
-       $mensagem .= " " . $numeros[] = $i;
-      }
+case "adicionarValor":
 
-      foreach($numeros as $numero){
-        if($numero % 2 == 0){
-          $mensagem2 .= " " . $numerosPares[] = $numero;
-          $soma += $numero;
-        }
-      }
+  $comida = [
+    "arroz",
+    "feijao",
+    "macarrao",
+    "bolacha"
+  ];
 
-      $mensagemFinal .= "Seu array e: " . $mensagem . "<br><br> Os numeros pares sao: " . $mensagem2 . "<br><br> A soma deu: " . $soma;
+  $preco = [
+    "5.50",
+    "7.20",
+    "4.80",
+    "3.10"
+  ];
 
-      $resultado = ["data" => $mensagemFinal];
-      echo json_encode($resultado);
-      break;
+  $mesclados = array_combine($comida, $preco);
+  $mensagem = "";
 
-      case "procurandoFruta":
+  foreach($mesclados as $comida => $preco){
+    $mensagem .= "Comida: ". $comida . " | Valor: " . $preco . "<br>";
+  }
 
-        $frutas = [
-          "banana",
-          "maca",
-          "goiaba",
-          "mamao",
-          "uva",
-          "morango"
-        ];
+  $resultado = ["data" => $mensagem];
+  echo json_encode($resultado);
+break;
 
-        $frutaDigitada = $_POST["fruta"];
+case "listaAlunos":
 
-        $mensagem = "Fruta nao encontrada!";
+  $mensagem = "";
 
-        foreach($frutas as $indice => $fruta){
-          if(strtolower($frutaDigitada) == strtolower($fruta)) {
-            $mensagem = "Fruta encontrada! <br> No indice: " . $indice;
-            break;
-          }
-        }
+  foreach($alunos as $aluno => $dados){
+    $mensagem .= "Nome: {$dados['nome']}" . " | Nota: {$dados['nota']}" . "<br>";
+  }
 
-        $resultado = ["data" => $mensagem];
-        echo json_encode($resultado);
-        break;
+  $resultado = ["data" => $mensagem];
+  echo json_encode($resultado);
+break;
 
-        case "primeiroArray":
+case "adicionarAluno":
 
-          $comida = [
-            "arroz",
-            "feijao",
-            "macarrao"
-          ];
+  $alunos["104"] = $removido;
 
-          $mensagem = "";
+  foreach($alunos as $removido => $dados){
+    $mensagem .= "Nome: {$dados['nome']}" . " | Nota: {$dados['nota']}" . "<br>";
+  }
 
-          foreach($comida as $c){
-            $mensagem .= "Comida: ". $c . "<br>";
-          }
+  $resultado = ["data" => $mensagem];
+  echo json_encode($resultado);
+break;
 
-          $resultado = ["data" => $mensagem];
-          echo json_encode($resultado);
-          break;
+case "atualizarNotaAluno":
+  
+  $alunos["102"]["nota"] = 5;
+  $alunos["104"] = $removido;
 
-        case "segundoArray":
+    foreach($alunos as $removido => $dados){
+    $mensagem .= "Nome: {$dados['nome']}" . " | Nota: {$dados['nota']}" . "<br>";
+  }
 
-          $preco = [
-            "5.50",
-            "7.20",
-            "4.80"
-          ];
+  $resultado = ["data"=> $mensagem];
+  echo json_encode($resultado);
+break;
 
-          $mensagem = "";
+case "calcularMedia":
 
-          foreach($preco as $p){
-            $mensagem .= "Preco: ". $p . "<br>";
-          }
+  $mensagem = "";
 
-          $resultado = ["data" => $mensagem];
-          echo json_encode($resultado);
+  $alunos["102"]["nota"] = 5;
+  $alunos["104"] = $removido;
 
-        break;
+    foreach($alunos as $removido => $dados){
+    $mensagem .= "Nome: {$dados['nome']}" . " | Nota: {$dados['nota']}" . "<br>";
+  }
 
-        case "mesclandoArrays":
+  foreach($alunos as $id => $aluno){
+    $soma += $aluno["nota"];
+  }
 
-          $comida = [
-            "arroz",
-            "feijao",
-            "macarrao"
-          ];
+  $media = $soma / count($alunos);
 
-          $preco = [
-            "5.50",
-            "7.20",
-            "4.80"
-          ];
+  $mensagem .= "<br> A media das notas e: " . $media;
 
-          $mesclados = array_combine($comida, $preco);
-          $mensagem = "";
+  $resultado = ["data"=> $mensagem];
+  echo json_encode($resultado);
+break;
 
-          foreach($mesclados as $comida => $preco){
-            $mensagem .= "Comida: ". $comida . " | Valor: " . $preco . "<br>";
-          }
+case "ordenarNotas":
 
-          $resultado = ["data" => $mensagem];
-          echo json_encode($resultado);
-          break;
+  $mensagem = "";
 
-          case "adicionarValor":
+  $alunos["102"]["nota"] = 5;
+  $alunos["104"] = $removido;
 
-          $comida = [
-            "arroz",
-            "feijao",
-            "macarrao",
-            "bolacha"
-          ];
+  usort($alunos, function($a, $b) {
+      return ($a["nota"] > $b["nota"]) ? -1 : 1;
+  });
 
-          $preco = [
-            "5.50",
-            "7.20",
-            "4.80",
-            "3.10"
-          ];
+  foreach($alunos as $aluno){
+    $mensagem .= "Nome: {$aluno['nome']}" . " | Nota: {$aluno['nota']}" . "<br>";
+  };
 
-          $mesclados = array_combine($comida, $preco);
-          $mensagem = "";
+  $resultado = ["data"=> $mensagem];
+  echo json_encode($resultado);
+break;
 
-          foreach($mesclados as $comida => $preco){
-            $mensagem .= "Comida: ". $comida . " | Valor: " . $preco . "<br>";
-          }
+case "mediaMaior":
 
-          $resultado = ["data" => $mensagem];
-          echo json_encode($resultado);
-          break;
+  $mensagem = "";
 
-          case "listaAlunos":
+  $alunos["102"]["nota"] = 5;
+  $alunos["104"] = $removido;
 
-            $mensagem = "";
+  foreach($alunos as $aluno){
+    if($aluno['nota'] > 8){
+      $mensagem .= "Nome: {$aluno['nome']}" . " | Nota: {$aluno['nota']}" . "<br>";
+    } 
+  }
 
-            foreach($alunos as $aluno => $dados){
-              $mensagem .= "Nome: {$dados['nome']}" . " | Nota: {$dados['nota']}" . "<br>";
-            }
-
-            $resultado = ["data" => $mensagem];
-            echo json_encode($resultado);
-            break;
-
-          case "adicionarAluno":
-
-            $alunos["104"] = $removido;
-
-            foreach($alunos as $removido => $dados){
-              $mensagem .= "Nome: {$dados['nome']}" . " | Nota: {$dados['nota']}" . "<br>";
-            }
-
-            $resultado = ["data" => $mensagem];
-            echo json_encode($resultado);
-            break;
-
-          case "atualizarNotaAluno":
-            
-            $alunos["102"]["nota"] = 5;
-            $alunos["104"] = $removido;
-
-             foreach($alunos as $removido => $dados){
-              $mensagem .= "Nome: {$dados['nome']}" . " | Nota: {$dados['nota']}" . "<br>";
-            }
-
-            $resultado = ["data"=> $mensagem];
-            echo json_encode($resultado);
-            break;
-
-          case "calcularMedia":
-
-            $mensagem = "";
-
-            $alunos["102"]["nota"] = 5;
-            $alunos["104"] = $removido;
-
-             foreach($alunos as $removido => $dados){
-              $mensagem .= "Nome: {$dados['nome']}" . " | Nota: {$dados['nota']}" . "<br>";
-            }
-
-            foreach($alunos as $id => $aluno){
-              $soma += $aluno["nota"];
-            }
-
-            $media = $soma / count($alunos);
-
-            $mensagem .= "<br> A media das notas e: " . $media;
-
-            $resultado = ["data"=> $mensagem];
-            echo json_encode($resultado);
-            break;
-
-            case "ordenarNotas":
-
-              $mensagem = "";
-
-              $alunos["102"]["nota"] = 5;
-              $alunos["104"] = $removido;
-
-              usort($alunos, function($a, $b) {
-                 return ($a["nota"] > $b["nota"]) ? -1 : 1;
-              });
-
-              foreach($alunos as $aluno){
-                $mensagem .= "Nome: {$aluno['nome']}" . " | Nota: {$aluno['nota']}" . "<br>";
-              };
-
-              $resultado = ["data"=> $mensagem];
-              echo json_encode($resultado);
-              break;
-            
-            case "mediaMaior":
-
-              $mensagem = "";
-
-              $alunos["102"]["nota"] = 5;
-              $alunos["104"] = $removido;
-
-              foreach($alunos as $aluno){
-                if($aluno['nota'] > 8){
-                  $mensagem .= "Nome: {$aluno['nome']}" . " | Nota: {$aluno['nota']}" . "<br>";
-                } 
-              }
-
-              $resultado = ["data" => $mensagem];
-              echo json_encode($resultado);
-              break;
+  $resultado = ["data" => $mensagem];
+  echo json_encode($resultado);
+break;
 }
 
