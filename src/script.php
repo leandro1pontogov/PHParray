@@ -2,6 +2,15 @@
 
 $action = $_GET["action"];
 
+  $comidas = 
+  [
+    "arroz", 
+    "feijao", 
+    "bolacha", 
+    "agua", 
+    "pao"
+  ];
+
 $nomes = [
       "Leandro",
       "Joao",
@@ -26,30 +35,52 @@ switch ($action) {
 
  case "listaMercado":
 
-  $comidas = 
-  [
-    "arroz", 
-    "feijao", 
-    "bolacha", 
-    "agua", 
-    "pao"
-  ];
-
   $mensagem = "";
 
   array_push($comidas, "cebola", "alface");
-  array_shift($comidas);
 
-  $quantidade = 0;
   foreach ($comidas as $comida) {
     $mensagem .= "<li>$comida</li>";
     $quantidade++;
   }
 
-  $mensagem .= "<br> Voce possui " . $quantidade . " itens na lista";
-
   $resposta = ["data" => $mensagem];
   echo json_encode($resposta);
+  break;
+
+  case "removerMercado":
+
+    $mensagem = "";
+
+    array_push($comidas, "cebola", "alface");
+    array_shift($comidas);
+
+    foreach($comidas as $comida){
+      $mensagem .= "<li>$comida</li>";
+    }
+
+    $resultado = ["data" => $mensagem];
+    echo json_encode($resultado);
+    break;
+
+  case "mostrarQuantidade":
+
+    $mensagem = "";
+
+    array_push($comidas, "cebola", "alface");
+    array_shift($comidas);
+
+    $quantidade = 0;
+    foreach ($comidas as $comida) {
+      $mensagem .= "<li>$comida</li>";
+      $quantidade++;
+    }
+
+    $mensagem .= "<br> Voce possui " . $quantidade . " itens na lista";
+
+    $resultado = ["data" => $mensagem];
+    echo json_encode($resultado);
+
   break;
 
   case "listaNome":
@@ -90,7 +121,50 @@ switch ($action) {
     echo json_encode($resultado);
     break;
 
-    case "numerosPares":
+    case "mostrarNumeros":
+
+      $numeros = [];
+
+      $mensagem = "";
+      $mensagem2 = "";
+
+      for($i = 1; $i <= 20; $i++){
+       $mensagem .= " " . $numeros[] = $i;
+      }
+
+      echo "Seu array e: " . $mensagem;
+      break;
+
+      case "numerosPares":
+
+      $mensagem = "";
+
+      $numeros = [];
+      $numerosPares = [];
+
+      $mensagem = "";
+      $mensagem2 = "";
+      $mensagemFinal = "";
+
+      for($i = 1; $i <= 20; $i++){
+       $mensagem .= " " . $numeros[] = $i;
+      }
+
+      foreach($numeros as $numero){
+        if($numero % 2 == 0){
+          $mensagem2 .= " " . $numerosPares[] = $numero;
+        }
+      }
+
+      $mensagemFinal .= "Seu array e: " . $mensagem . "<br><br> Os numeros pares sao: " . $mensagem2;
+
+      $resultado = ["data" => $mensagemFinal];
+      echo json_encode($resultado);
+      break;
+
+      case "mostrarSoma":
+
+        $mensagem = "";
 
       $numeros = [];
       $numerosPares = [];
@@ -98,6 +172,7 @@ switch ($action) {
 
       $mensagem = "";
       $mensagem2 = "";
+      $mensagemFinal = "";
 
       for($i = 1; $i <= 20; $i++){
        $mensagem .= " " . $numeros[] = $i;
@@ -110,7 +185,10 @@ switch ($action) {
         }
       }
 
-      echo "Seu array e: " . $mensagem . "<br><br> Os numeros pares sao: " . $mensagem2 . "<br><br> A soma deu: " . $soma;
+      $mensagemFinal .= "Seu array e: " . $mensagem . "<br><br> Os numeros pares sao: " . $mensagem2 . "<br><br> A soma deu: " . $soma;
+
+      $resultado = ["data" => $mensagemFinal];
+      echo json_encode($resultado);
       break;
 
       case "procurandoFruta":

@@ -30,6 +30,37 @@ $(document).ready(function() {
       },
       function(response){
         $("#listaMercado").html(response.data);
+        $("#BtnRemoverMercado").show()
+        $("#BtnEnviar").hide()
+        console.log(response.data)
+      },
+   "json"
+    )
+  })
+  $("#BtnRemoverMercado").click(function(){
+    $.post(
+      "script.php?action=removerMercado",
+      {
+        
+      },
+      function(response){
+        $("#listaMercado").html(response.data);
+        $("#BtnRemoverMercado").hide()
+        $("#BtnQuantidadeMercado").show()
+        console.log(response.data)
+      },
+   "json"
+    )
+  })
+  $("#BtnQuantidadeMercado").click(function(){
+    $.post(
+      "script.php?action=mostrarQuantidade",
+      {
+        
+      },
+      function(response){
+        $("#listaMercado").html(response.data);
+        $("#BtnQuantidadeMercado").show()
         console.log(response.data)
       },
    "json"
@@ -46,6 +77,7 @@ $(document).ready(function() {
       },
       function(response){
         $("#listaNome").html(response.data);
+        $("#BtnEnviarNome").hide()
         console.log(response.data)
       },
    "json"
@@ -79,14 +111,45 @@ $(document).ready(function() {
   })
   $("#BtnEnviarNumero").click(function(){
     $.post(
-      "script.php?action=numerosPares",
+      "script.php?action=mostrarNumeros",
       {
         
       },
       function(response){
         $("#listaNumero").html(response);
+        $("#BtnNumerosPares").show()
+        $("#BtnEnviarNumero").hide()
         console.log(response)
       },
+    )
+  })
+  $("#BtnNumerosPares").click(function(){
+    $.post(
+      "script.php?action=numerosPares",
+      {
+        
+      },
+      function(response){
+        $("#listaNumero").html(response.data);
+        $("#BtnNumerosPares").hide()
+        $("#BtnNumerosParesSoma").show()
+        console.log(response.data)
+      },
+      "json"
+    )
+  })
+  $("#BtnNumerosParesSoma").click(function(){
+    $.post(
+      "script.php?action=mostrarSoma",
+      {
+        
+      },
+      function(response){
+        $("#listaNumero").html(response.data);
+        $("#BtnNumerosParesSoma").hide()
+        console.log(response.data)
+      },
+      "json"
     )
   })
   $("#BtnEnviarFruta").click(function(){
@@ -111,6 +174,7 @@ $(document).ready(function() {
       },
       function(response){
         $("#mostrar").html(response.data);
+        $("#BtnMostrarLista").hide()
         console.log(response.data)
       },
       "json"
@@ -219,7 +283,9 @@ $(document).ready(function() {
       <li>agua</li>
       <li>pao</li>
     </ul>
-    <input id="BtnEnviar" type="button" value="Adicionar na lista">
+    <input id="BtnEnviar" type="button" value="Adicionar 2 itens">
+    <input id="BtnRemoverMercado" type="button" value="Remover primeiro intem" hidden>
+    <input id="BtnQuantidadeMercado" type="button" value="Mostrar quantidade de itens" hidden>
 
     <div id="linha"></div>
 
@@ -237,6 +303,8 @@ $(document).ready(function() {
     </ul>
 
     <input id="BtnEnviarNumero" type="button" value="Mostrar Lista Numero">
+    <input id="BtnNumerosPares" type="button" value="Mostrar Numeros Pares" hidden>
+    <input id="BtnNumerosParesSoma" type="button" value="Mostrar Soma" hidden>
 
     <div id="linha"></div>
 
